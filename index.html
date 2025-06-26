@@ -3,152 +3,100 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Journal - Daily!</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #f0f4f8;
-  }
-  h1, h2 {
-    color: #2c3e50;
-  }
-  label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-  }
-  textarea {
-    width: 100%;
-    min-height: 60px;
-    margin-top: 0.25rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    resize: vertical;
-  }
-  button {
-    margin-top: 1.5rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
-    background: #3498db;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    cursor: pointer;
-  }
-  button:hover {
-    background: #2980b9;
-  }
-  #journalOutput {
-    margin-top: 2rem;
-    background: white;
-    padding: 1rem;
-    border-radius: 6px;
-    white-space: pre-wrap;
-    border: 1px solid #ddd;
-  }
-</style>
+<title>Daily Journal</title>
 </head>
 <body>
 
-<h1>Journal - Daily!</h1>
+<h1>Daily Journal</h1>
 
 <form id="journalForm">
-  <h2>Journal Entry</h2>
-
-  <label for="situation">Situation - What happened?</label>
-  <textarea id="situation" required></textarea>
-
-  <label for="thought">Thought - What I thought?</label>
-  <textarea id="thought" required></textarea>
-
-  <label for="emotion">Emotion - What I felt?</label>
-  <textarea id="emotion" required></textarea>
-
-  <label for="action">Action - What did I do?</label>
-  <textarea id="action" required></textarea>
-
-  <h2>Emotional Regulation Exercise</h2>
-
-  <label for="identifyEmotion">Identify emotion - Name it</label>
-  <textarea id="identifyEmotion" required></textarea>
-
-  <label for="emotionMotivation">What did my emotion motivate me to do? What did it serve?</label>
-  <textarea id="emotionMotivation" required></textarea>
-
-  <label for="emotionExpression">How was my emotion expressed to others? (presence, non verbal, actions)</label>
-  <textarea id="emotionExpression" required></textarea>
-
-  <label for="emotionMessage">What message did my emotion express to others?</label>
-  <textarea id="emotionMessage" required></textarea>
-
-  <label for="emotionImpact">What was the impact of my emotion on others?</label>
-  <textarea id="emotionImpact" required></textarea>
-
-  <label for="emotionSayingToMe">What was my emotion saying to me?</label>
-  <textarea id="emotionSayingToMe" required></textarea>
-
-  <label for="checkFacts">If I check facts, what does it say?</label>
-  <textarea id="checkFacts" required></textarea>
-
-  <h2>Later Reflection</h2>
-
-  <label for="evaluateThought">How can I evaluate my thought process and re-adjust it?</label>
-  <textarea id="evaluateThought" required></textarea>
-
-  <button type="submit">Generate Journal Entry</button>
+  <label>Situation - What happened:<br />
+    <textarea name="situation" required></textarea>
+  </label><br /><br />
+  
+  <label>Thought - What I thought:<br />
+    <textarea name="thought" required></textarea>
+  </label><br /><br />
+  
+  <label>Emotion - What I felt:<br />
+    <textarea name="emotion" required></textarea>
+  </label><br /><br />
+  
+  <label>Action - What did I do:<br />
+    <textarea name="action" required></textarea>
+  </label><br /><br />
+  
+  <label>Emotion Name:<br />
+    <input type="text" name="emotionName" required />
+  </label><br /><br />
+  
+  <label>Motivation - What did my emotion motivate me to do?:<br />
+    <textarea name="motivation" required></textarea>
+  </label><br /><br />
+  
+  <label>Expression - How was my emotion expressed?:<br />
+    <textarea name="expression" required></textarea>
+  </label><br /><br />
+  
+  <label>Message to Others:<br />
+    <textarea name="messageToOthers" required></textarea>
+  </label><br /><br />
+  
+  <label>Impact on Others:<br />
+    <textarea name="impactOnOthers" required></textarea>
+  </label><br /><br />
+  
+  <label>Message to Self:<br />
+    <textarea name="messageToSelf" required></textarea>
+  </label><br /><br />
+  
+  <label>Fact Check:<br />
+    <textarea name="factCheck" required></textarea>
+  </label><br /><br />
+  
+  <label>Later Evaluation:<br />
+    <textarea name="laterEvaluation" required></textarea>
+  </label><br /><br />
+  
+  <button type="submit">Submit Journal Entry</button>
 </form>
 
-<div id="journalOutput"></div>
-
 <script>
-  document.getElementById('journalForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+  const form = document.getElementById('journalForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
 
-    const fields = [
-      {id: 'situation', label: 'Situation'},
-      {id: 'thought', label: 'Thought'},
-      {id: 'emotion', label: 'Emotion'},
-      {id: 'action', label: 'Action'},
-      {id: 'identifyEmotion', label: 'Identify emotion'},
-      {id: 'emotionMotivation', label: 'Emotion motivation'},
-      {id: 'emotionExpression', label: 'Emotion expression'},
-      {id: 'emotionMessage', label: 'Emotion message'},
-      {id: 'emotionImpact', label: 'Emotion impact'},
-      {id: 'emotionSayingToMe', label: 'Emotion message to self'},
-      {id: 'checkFacts', label: 'Check facts'},
-      {id: 'evaluateThought', label: 'Thought evaluation'}
-    ];
+    const data = {
+      timestamp: new Date().toISOString(),
+      situation: form.situation.value,
+      thought: form.thought.value,
+      emotion: form.emotion.value,
+      action: form.action.value,
+      emotionName: form.emotionName.value,
+      motivation: form.motivation.value,
+      expression: form.expression.value,
+      messageToOthers: form.messageToOthers.value,
+      impactOnOthers: form.impactOnOthers.value,
+      messageToSelf: form.messageToSelf.value,
+      factCheck: form.factCheck.value,
+      laterEvaluation: form.laterEvaluation.value
+    };
 
-    let output = '--- Journal Entry ---\n\n';
-
-    // Journal Entry section
-    output += 'Situation: ' + document.getElementById('situation').value.trim() + '\n\n';
-    output += 'Thought: ' + document.getElementById('thought').value.trim() + '\n\n';
-    output += 'Emotion: ' + document.getElementById('emotion').value.trim() + '\n\n';
-    output += 'Action: ' + document.getElementById('action').value.trim() + '\n\n';
-
-    output += '--- Emotional Regulation Exercise ---\n\n';
-
-    output += 'Identify emotion: ' + document.getElementById('identifyEmotion').value.trim() + '\n\n';
-    output += 'What did my emotion motivate me to do? What did it serve?: ' + document.getElementById('emotionMotivation').value.trim() + '\n\n';
-    output += 'How was my emotion expressed to others? (presence, non verbal, actions): ' + document.getElementById('emotionExpression').value.trim() + '\n\n';
-    output += 'What message did my emotion express to others?: ' + document.getElementById('emotionMessage').value.trim() + '\n\n';
-    output += 'What was the impact of my emotion on others?: ' + document.getElementById('emotionImpact').value.trim() + '\n\n';
-    output += 'What was my emotion saying to me?: ' + document.getElementById('emotionSayingToMe').value.trim() + '\n\n';
-    output += 'If I check facts, what does it say?: ' + document.getElementById('checkFacts').value.trim() + '\n\n';
-
-    output += '--- Later Reflection ---\n\n';
-    output += 'How can I evaluate my thought process and re-adjust it?: ' + document.getElementById('evaluateThought').value.trim();
-
-    document.getElementById('journalOutput').textContent = output;
-
-    // Optionally clear the form for next entry
-    // this.reset();
+    fetch('https://script.google.com/macros/s/AKfycby-Z1tfHXEHQM8zChMRgQRn97dTw-3eLIO-8b19QsmQzWFYPTOmEhQnl9Ie8wZXNv1g/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      if(result.result === 'success'){
+        alert('Journal entry saved!');
+        form.reset();
+      } else {
+        alert('Error saving entry.');
+      }
+    })
+    .catch(() => alert('Error connecting to server.'));
   });
 </script>
 
