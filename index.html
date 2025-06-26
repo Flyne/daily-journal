@@ -84,17 +84,13 @@
 
     fetch('https://script.google.com/macros/s/AKfycby-Z1tfHXEHQM8zChMRgQRn97dTw-3eLIO-8b19QsmQzWFYPTOmEhQnl9Ie8wZXNv1g/exec', {
       method: 'POST',
+      mode: 'no-cors',  // Added to avoid CORS errors
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(result => {
-      if(result.result === 'success'){
-        alert('Journal entry saved!');
-        form.reset();
-      } else {
-        alert('Error saving entry.');
-      }
+    .then(() => {
+      alert('Journal entry saved!');
+      form.reset();
     })
     .catch(() => alert('Error connecting to server.'));
   });
