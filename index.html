@@ -82,18 +82,17 @@
       laterEvaluation: form.laterEvaluation.value
     };
 
-    fetch('https://script.google.com/macros/s/AKfycbyLfSJ8aiK-MFnNvJZhZMJ7JVJRoUIbKYQJfFM0iE7M3a9dk0_6fSHYQOzPKxl21Wos/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbzbiCoduTNhPcz2bSxDRHfz_pB8KG0IsbLdptKyqia4KP8ZuqsEQq5Wm8L8OqkCYrNL/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(result => {
-      if (result.result === 'success') {
+    .then(response => {
+      if(response.ok) {
         alert('Journal entry saved!');
         form.reset();
       } else {
-        alert('Error saving entry.');
+        alert('Failed to save journal entry.');
       }
     })
     .catch(() => alert('Error connecting to server.'));
